@@ -1,5 +1,6 @@
 # NonRegularPurposeCalculator
-Non Regurar Purpose Calculator (NRP Calculator for short) is a simple RPN (Reverse Polish Notation) calculator write in C.
+
+Non Regurar Purpose Calculator (NRP Calculator for short) is a simple RPN (Reverse Polish Notation) calculator written in C.
 
 ## How to run (Unix)
 
