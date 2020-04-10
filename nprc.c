@@ -31,7 +31,7 @@
  * Data structures
  */
 typedef struct Node{
-	char* data;
+	double data;
 	struct Node *next;
 } NODEPTR;
 
@@ -52,11 +52,11 @@ typedef struct Node{
  */
 int initStack(NODEPTR **start); //start an empty stack
 int empty(NODEPTR **stack); //verifies if the stack is empty
-void push(NODEPTR **stack, char* data); //insert a node into the stack
+void push(NODEPTR **stack, double data); //insert a node into the stack
 int pop(NODEPTR **stack); //remove a node from the stack and return status
-void menu(); //prints an options menu on screen
+void menu(NODEPTR **stack); //prints an options menu on screen
 double calc(); //calculates the result
-
+int print(NODEPTR *stack);
 
 /*********************** MAIN FUNCTION SECTION ************************/
 
@@ -64,7 +64,11 @@ double calc(); //calculates the result
  * main function
  */
 int main(int argc, char* argv[]){
-	menu();
+	NODEPTR *stack;
+
+	initStack(&stack);
+
+	menu(&stack);
 	return 0; //need to return system status
 }
 
@@ -90,47 +94,87 @@ int empty(NODEPTR **stack){
 	}
 }
 
+int print(NODEPTR *stack){
+	NODEPTR *wander = stack;
+
+	if(wander == NULL){
+		//Lista vazia
+		return 0;
+	} else {
+		printf("\nTOPO ->");
+		while(wander->next != NULL){
+				printf(" %.2lf ->", wander->data);
+				wander = wander->next;
+		}
+		printf(" %.2lf\n", wander->data);
+		return 1;
+	}
+}
+
 /*
  * insert a node into the stack
  */
-void push(NODEPTR **stack, char* data){
-	NODEPTR *ptr = (NODEPTR*) malloc(sizeof(NODEPTR));
-	strcpy(ptr->data, data);
+void push(NODEPTR **stack, double data){
+	NODEPTR *ptr, *wander;
+	ptr = (NODEPTR*) malloc(sizeof(NODEPTR));
+
+	ptr->data = data;
+
 	if(empty(stack)){
 		*stack = ptr;
 	}
 	else{
-		ptr->next = (*stack)->next;
+		wander = (*stack);
+		(*stack) = ptr;
+		(*stack)->next = wander;
 	}
-	(*stack)->next = ptr;
 }
 
 /*
  * remove a node from the stack
  */
 int pop(NODEPTR **stack){
-	char* data = (char*) malloc(sizeof(char));
+	// char* data = (char*) malloc(sizeof(char));
+	double data = 0;
 	NODEPTR *ptr;
+
 	if(empty(stack)){
-		return 0; //failure: underflow
+		return 0; // failure: underflow
 	}
+
 	ptr = (*stack)->next;
-	strcpy(data, ptr->data);
+	data = ptr->data;
+
 	if(ptr == *stack){
 		*stack = NULL;
 	}
 	else{
 		(*stack)->next = ptr->next;
 	}
+
 	free(ptr);
+
 	return 1; //success
 }
 
 /*
  * prints an options menu on screen
  */
-void menu(){
-	
+void menu(NODEPTR **stack){
+	double inputValue = 0;
+	char operator;
+	int err;
+
+	do{
+		err = empty(stack);
+		if(err == 1){
+			printf("The stack is empty\n\n");
+		}
+		scanf("%lf", &inputValue);
+		push(stack, inputValue);
+		print(*stack);
+	}while(1);
+
 }
 
 /*
