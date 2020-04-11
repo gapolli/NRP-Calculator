@@ -53,9 +53,9 @@ typedef struct Node{
 int initStack(NODEPTR **start); //start an empty stack
 int empty(NODEPTR **stack); //verifies if the stack is empty
 void push(NODEPTR **stack, double data); //insert a node into the stack
-int pop(NODEPTR **stack); //remove a node from the stack and return status
+double pop(NODEPTR **stack); //remove a node from the stack and return status
 void menu(NODEPTR **stack); //prints an options menu on screen
-double calc(); //calculates the result
+double calc(double value1, double value2, char operator); //calculates the result
 int print(NODEPTR *stack);
 
 /*********************** MAIN FUNCTION SECTION ************************/
@@ -128,13 +128,15 @@ void push(NODEPTR **stack, double data){
 		(*stack) = ptr;
 		(*stack)->next = wander;
 	}
+	printf("Finalizou push\n\n");
 }
 
 /*
  * remove a node from the stack
  */
-int pop(NODEPTR **stack){
-	// char* data = (char*) malloc(sizeof(char));
+double pop(NODEPTR **stack){
+	//TODO: Fix this function
+	printf("Executou pop\n\n");
 	double data = 0;
 	NODEPTR *ptr;
 
@@ -153,26 +155,51 @@ int pop(NODEPTR **stack){
 	}
 
 	free(ptr);
-
-	return 1; //success
+	printf("Finalizou pop: %lf\n\n", data);
+	return data; //success
 }
 
 /*
  * prints an options menu on screen
  */
 void menu(NODEPTR **stack){
-	double inputValue = 0;
+	double inputValue1 = 0,
+	inputValue2 = 0,
+	returnedValue1 = 0,
+	returnedValue2 = 0,
+	result = 0;
+
 	char operator;
 	int err;
 
 	do{
 		err = empty(stack);
+
 		if(err == 1){
 			printf("The stack is empty\n\n");
 		}
-		scanf("%lf", &inputValue);
-		push(stack, inputValue);
+
+		scanf("%lf", &inputValue1);
+		getchar();
+		push(stack, inputValue1);
 		print(*stack);
+
+		scanf("%lf", &inputValue2);
+		getchar();
+		push(stack, inputValue2);
+		print(*stack);
+
+		operator = getchar();
+		printf("%c\n", operator);
+		printf("PEGOU CHAR\n");
+
+		returnedValue1 = pop(stack);
+
+		returnedValue2 = pop(stack);
+
+		result = calc(returnedValue1, returnedValue2, operator);
+
+		printf("\n%lf\n", result);
 	}while(1);
 
 }
@@ -183,6 +210,23 @@ void menu(NODEPTR **stack){
  * TODO: this function needs to verify if the data is either a numeric
  * value or a char value and do the cast if necessary
  */
-double calc(){
-	return 0; //need to return some value
+double calc(double value1, double value2, char operator){
+	double result = 0;
+
+	switch(operator){
+		case '*':
+			result = value1 * value2;
+			break;
+		case '/':
+			result = value1 / value2;
+			break;
+		case '+':
+			result = value1 + value2;
+			break;
+		case '-':
+			result = value1 - value2;
+			break;
+	}
+
+	return result; //need to return some value
 }
