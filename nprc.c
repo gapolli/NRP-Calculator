@@ -11,7 +11,7 @@
  *
  * Description:
  * Non Regurar Purpose Calculator is a simple RPN (Reverse Polish
- * Notation) write in C.
+ * Notation) written in C.
  */
 
 
@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h> // function isdigit()
+#include <ctype.h>
 
 #define NUMBER '0' //signal that a number was found
 
@@ -47,12 +47,9 @@ typedef struct Node{
  * 0 - means failure
  */
 
-
 /************************** HEADERS SECTION ***************************/
 
-/*
- * Function headers
- */
+/* Function headers */
 int initStack(NODEPTR **start); //start an empty stack
 int empty(NODEPTR **stack); //verifies if the stack is empty
 void push(NODEPTR **stack, double data); //insert a node into the stack
@@ -60,15 +57,11 @@ double pop(NODEPTR **stack); //remove a node from the stack and return status
 void menu(NODEPTR **stack); //prints an options menu on screen
 double calc(double value1, double value2, char operator); //calculates the result
 int print(NODEPTR *stack);
-
 int isNumber(char *input);
 char getOp(char *operator);
 
 /*********************** MAIN FUNCTION SECTION ************************/
 
-/*
- * main function
- */
 int main(int argc, char* argv[]){
 	NODEPTR *stack;
 
@@ -81,17 +74,13 @@ int main(int argc, char* argv[]){
 
 /************************* FUNCTIONS SECTION **************************/
 
-/*
- * start an empty stack
- */
+/* start an empty stack */
 int initStack(NODEPTR **start){
 	*start = NULL;
 	return 1; //success
 }
 
-/*
- * verifies if the stack is empty
- */
+/* verifies if the stack is empty */
 int empty(NODEPTR **stack){
 	if(*stack == NULL){
 		return 1; //true
@@ -116,9 +105,7 @@ int print(NODEPTR *stack){
 	}
 }
 
-/*
- * insert a node into the stack
- */
+/* insert a node into the stack */
 void push(NODEPTR **stack, double data){
 	NODEPTR *ptr, *wander;
 	ptr = (NODEPTR*) malloc(sizeof(NODEPTR));
@@ -135,11 +122,7 @@ void push(NODEPTR **stack, double data){
 	}
 }
 
-/*
- * remove a node from the stack
- */
-
-//TODO: Verificar se a pilha tem 2 ou mais numeros;
+/* remove a node from the stack */
 double pop(NODEPTR **stack){
 	NODEPTR *wander = (*stack), *aux;
 	double data = 0;
@@ -155,9 +138,6 @@ double pop(NODEPTR **stack){
 	}
 }
 
-/*
- * prints an options menu on screen
- */
 void menu(NODEPTR **stack){
 	double result = 0;
 

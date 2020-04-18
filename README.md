@@ -18,5 +18,3 @@ Non Regurar Purpose Calculator (NRP Calculator for short) is a simple RPN (Rever
 - [Victor Gomes Sampaio](https://github.com/VictorGom3s)
 
 ## Possible future implementations:
-
--
