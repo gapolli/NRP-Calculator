@@ -6,7 +6,7 @@ Non Regurar Purpose Calculator (NRP Calculator for short) is a simple RPN (Rever
 
 - Compile the source with:
 
-  `$ gcc rpnc.c`
+  `$ gcc nrpc.c`
 
 - Execute the program and follow the instructions on screen
 
